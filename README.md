@@ -14,7 +14,7 @@ The last two years have been self-directed AI infrastructure: serving models on 
 measuring time-to-first-token and cache occupancy before choosing a model, and running agent
 workloads under timeouts, budgets and a human approval gate on anything that leaves the machine.
 
-- CV: [`cv/Nick_Sterniotis_CV_Cloud_Virtualization_2026-10.pdf`](https://github.com/sternnick/portfolio/blob/main/cv/Nick_Sterniotis_CV_Cloud_Virtualization_2026-10.pdf)
+- CV: [`cv/Nick_Sterniotis_CV.pdf`](https://github.com/sternnick/portfolio/blob/main/cv/Nick_Sterniotis_CV.pdf)
 - Side projects: [`projects/`](https://github.com/sternnick/portfolio/tree/main/projects)
 - LinkedIn: https://linkedin.com/in/nsterniotis
 - GitHub: https://github.com/sternnick
