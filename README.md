@@ -2,8 +2,7 @@
 
 Linux, virtualisation and the production operations around them: the systems that have to stay up,
 the network paths between them, and the automation used to change any of it under review. Twenty-plus
-years in IT, most of it as the person who owns the incident, owns the change, and writes the runbook
-afterwards.
+years in IT, most of it as the person who owns the incident and writes the runbook afterwards.
 
 What I actually do, in plain terms:
 

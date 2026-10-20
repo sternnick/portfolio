@@ -8,7 +8,12 @@ variable. The split is deliberate, Terraform provisions, Ansible configures, so 
 never lives in two dependency graphs. Terraform state is **not** in git — it is gitignored, and none
 has been created (see Not verified).
 
-## Verified
+**Evidence tiers used on this page:** *automated validation* — `validate` and `fmt -check` prove the
+configuration is well-formed against the provider schema. That is **not** *verified implementation*:
+no `plan` and no `apply` ran, so nothing was provisioned. No part of this page is *lab testing* of a
+running system and none of it is employer work.
+
+## Verified (automated validation only)
 
 | Check | Result |
 |---|---|

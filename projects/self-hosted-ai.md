@@ -7,7 +7,9 @@ as an infrastructure problem rather than a demo: measure first, choose second. S
 self-directed host serving my own workloads — not a multi-node platform, not a service with users or
 an SLA, and nothing here is presented as production-deployed.
 
-What is measured, on the machine, before model choices are made:
+**Evidence tiers used on this page:** *verified implementation* (the gateway, access control and
+admission control run here) and *lab testing* (everything runs on one self-directed host, so the
+numbers describe one machine on one day). Nothing on this page is employer work or a hosted service.
 
 - **time-to-first-token** and **inter-token latency** at concurrency levels that reflect real load:
   roughly 29 seconds to first token and around 0.32 seconds per token with three to four requests in

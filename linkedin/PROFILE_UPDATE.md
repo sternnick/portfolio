@@ -87,8 +87,8 @@ contractor for the same hosted platform.
 Technical leadership for the hosted infrastructure behind a multi-tenant cloud platform, in a small
 team where the same people design, build and operate.
 
-• Supported Linux production infrastructure and hosted workloads across multiple data-centre
-  environments, including Virtuozzo/OpenVZ container hosting.
+• Supported the hosted production platform on Linux across the two data centres the service spans
+  (Cyprus and Amsterdam), including Virtuozzo/OpenVZ container hosting.
 • Contributed the infrastructure side of design decisions on compute, networking, system integration
   and operational reliability.
 • Escalation point for complex hosting and infrastructure issues, across hosting, reverse-proxy
@@ -104,22 +104,41 @@ arrangement. Same employer, two distinct jobs.
 
 **Position type:** Part-time · Self-employed · **Ireland, Remote · Aug 2025 – Present**
 
+The current profile already carries four accurate bullets; keep them verbatim and add only the
+framing line:
+
 ```
-SME and private engagements alongside contracted work.
+Self-employed engagements alongside contracted work.
 
-• Domain and DNS architecture, VPS and Linux hosting with security configured at install time rather
-  than retrofitted.
-• CDN, reverse-proxy and TLS termination: setup plus the troubleshooting that follows.
-• Remote diagnostics and repair for systems I did not build.
+• Domain registration & DNS configuration (routing, email records, propagation troubleshooting)
+• VPS provisioning & Linux-based hosting setup (basic security configuration)
+• CDN, reverse proxy & SSL/TLS setup for web performance and secure access
+• Remote troubleshooting & technical guidance for SMEs and private clients
 ```
 
-## Other roles
+## Experience — earlier roles: restore the distinct titles
 
-Altec SA (Volunteer IT Assistant, Apr 2000 – Jun 2003), Kokkinos (two engagements, Mar 2005 – Dec 2009
-and Apr 2012 – Apr 2022, with the 2010–2012 career break disclosed), Simplex Cyprus (IT Operations
-Engineer, May 2022 – Jun 2023) and FXGlobe (IT Support / Operations Engineer, Jul – Oct 2023) are
-already accurate on the profile; the only change I would make is **location and employment type on
-every entry** — LinkedIn accepts both, and screening filters read them.
+The historical export lists these as **separate positions, not one continuous employment**, and the
+distinction is real work, not bookkeeping. Paste each as its own entry:
+
+| Employer | Title (exactly as on the profile) | Period | Location |
+|---|---|---|---|
+| FXGlobe | IT Operations Engineer | Jul 2023 – Oct 2023 | Cyprus |
+| Simplex – Cyprus | IT Operations Engineer (Field / On-site) | May 2022 – Jun 2023 | Cyprus |
+| Konstantinos Kokkinos | IT Operations & Infrastructure Consultant | Jul 2021 – Apr 2022 | Greece |
+| Konstantinos Kokkinos | IT Field & Infrastructure Engineer | Apr 2012 – Jul 2021 | Greece |
+| Konstantinos Kokkinos | IT Support Technician | Mar 2005 – Dec 2009 | Greece |
+| Altec SA | Volunteer IT Assistant | Apr 2000 – Jun 2003 | Greece |
+
+The three Kokkinos entries are one employer and three roles — LinkedIn groups them under one company
+with separate positions, which is why its counter reads "10 years 1 month" for the 2012–2022 block.
+Do not merge them into a single "2005 – 2022" line: that would state a continuous employment the
+source profiles do not show, and it would hide the disclosed 2010–2012 break.
+
+**Education, also from the export (three entries, not one):**
+- 4th Vocational & Technical School (TEE), Kavala — Informatics / Computer Networks & Support, Sep 1999 – Jul 2002
+- 1st Vocational & Technical School (TEE), Kavala — Industrial Electronics Technology / Technician, Sep 1998 – Jul 1999
+- 1st Vocational Apprenticeship Program (EPAS), Kavala — Physiotherapist Assistants, Sep 2011 – Jul 2013
 
 ## Top skills
 

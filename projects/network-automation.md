@@ -7,6 +7,10 @@ split is below: one part of this work is deployed and measurable, one part is a 
 been cut over. Both are worth reading — the second one is mostly about knowing which failure modes
 you have not met yet.
 
+**Evidence tiers used on this page:** *verified implementation* (running and measurable),
+*automated validation* (a check passes without proving a live run), *lab testing* (works on my own
+equipment, nowhere else), *proposed* (designed, not cut over).
+
 ## Deployed and measurable
 
 - **Remote access without exposing the network.** Tunnel-based access (Pangolin, with a WireGuard

@@ -6,6 +6,7 @@ Cork, Ireland · +353 83 126 8759 · [nick@sterniotis.com](mailto:nick@sternioti
 [linkedin.com/in/nsterniotis](https://www.linkedin.com/in/nsterniotis) · [github.com/sternnick](https://github.com/sternnick)  
 **Work authorisation:** EU citizen — no employment permit required  
 **Availability:** 1 month notice  
+**Certification:** AWS Certified Solutions Architect – Professional (details and dates below)  
 **Target:** senior infrastructure / platform engineering, remote within Ireland and the EU
 
 ---
@@ -14,9 +15,8 @@ Cork, Ireland · +353 83 126 8759 · [nick@sterniotis.com](mailto:nick@sternioti
 
 Infrastructure engineer with 20+ years in IT, most of it on the layer that has to stay up: Linux
 systems, hypervisor and container estates, the network paths between them, and the automation used
-to change any of it without breaking it. I have held incident ownership and change ownership on
-hosted production infrastructure, written the postmortem afterwards, and written the runbook that
-came out of it.
+to change any of it without breaking it. I have held incident ownership on hosted production
+infrastructure — triage, mitigation, root-cause follow-up — and written the runbook that came out of
 
 Configuration is version-controlled and reviewed, and the checks that guard it fail the build
 rather than printing a warning. Cloud architecture is my certified discipline on AWS (Certified
@@ -34,8 +34,9 @@ service-level troubleshooting. Incident triage, mitigation, root-cause follow-up
 **Virtualisation & hosted infrastructure**: Virtuozzo / OpenVZ container hosting and VMware vSphere
 in production hosting, KVM underneath both; Proxmox VE on a self-directed estate.
 
-**Containers**: Docker and Docker Compose in production hosting; container hardening practices
-(rootless daemon, capability drops, read-only filesystems, image pinning, internal-only networks).
+**Containers**: Docker and Docker Compose in production hosting. Container hardening is a
+self-directed practice I apply and document (rootless daemon, capability drops, read-only
+filesystems, image pinning by digest, internal-only networks) rather than an employer programme.
 
 **Networking**: TCP/IP, routing and policy routing, DNS and DHCP, VLAN concepts, site-to-site and
 client VPN, NAT, firewall zones, reverse proxy and TLS termination; wired and fibre troubleshooting.
@@ -76,8 +77,8 @@ Continuation of the working relationship after relocation to Ireland, as externa
 - Work across infrastructure, networking and platform layers in a shift-covered service environment.
 
 **Cloud Lead Engineer / Architect** — Scaleforce | Cyprus | Nov 2023 – Aug 2025 | Full-time
-- Supported Linux production infrastructure and hosted workloads across multiple data-centre
-  environments, including Virtuozzo/OpenVZ container hosting.
+- Supported the hosted production platform on Linux, across the two data centres the service spans
+  (Cyprus and Amsterdam), including Virtuozzo/OpenVZ container hosting.
 - Contributed to infrastructure and platform design decisions across compute, networking,
   integration and operational reliability.
 - Escalation point for complex hosting and infrastructure issues in a small-team operating model.
@@ -88,7 +89,7 @@ Continuation of the working relationship after relocation to Ireland, as externa
 - Domain and DNS configuration, VPS and Linux hosting with security applied at install time.
 - CDN, reverse-proxy and TLS termination configuration and troubleshooting.
 
-**IT Support / Operations Engineer** — FXGlobe LTD | Cyprus, hybrid | Jul – Oct 2023 | Contract
+**IT Operations Engineer** — FXGlobe LTD | Cyprus, hybrid | Jul – Oct 2023 | Contract
 - Office and cloud-connected infrastructure support; network security configuration across local and
   overseas offices.
 - VoIP/softphone deployment across branches; connectivity and call-quality investigation.
@@ -99,11 +100,19 @@ Continuation of the working relationship after relocation to Ireland, as externa
 - Data-centre operations, VMware environments, hardware lifecycle and SQL Server operational support.
 - Endpoint, network and service resolution, with escalation of infrastructure-level incidents.
 
-**IT Field & Infrastructure Engineer / IT Operations Consultant** — Konstantinos Kokkinos | Greece, remote | Mar 2005 – Dec 2009 and Apr 2012 – Apr 2022
+**IT Operations & Infrastructure Consultant** — Konstantinos Kokkinos | Greece, remote | Jul 2021 – Apr 2022
+- Infrastructure maintenance, upgrades and reliability advice for long-running customer environments.
+- Escalation-level diagnosis across servers, systems and connectivity.
+
+**IT Field & Infrastructure Engineer** — Konstantinos Kokkinos | Greece, remote | Apr 2012 – Jul 2021
 - Field and remote support for business customers: servers, Windows and Linux systems, LAN/WAN
   connectivity.
 - Installation and troubleshooting of copper Ethernet and fibre infrastructure; end-to-end diagnosis.
-- Advised on maintenance, upgrades and reliability across long-running customer environments.
+- Multi-site deployments (branch offices, retail POS and network infrastructure).
+
+**IT Support Technician** — Konstantinos Kokkinos | Greece | Mar 2005 – Dec 2009
+- Desktop, server and network support for business customers; remote support across multi-timezone
+  layouts.
   *Career break 2010–2012, disclosed.*
 
 **Volunteer IT Assistant** — Altec SA | Greece | Apr 2000 – Jun 2003
@@ -133,7 +142,12 @@ control, and enforced ceilings on provider calls and agent fan-out.
 
 **AWS Certified Solutions Architect – Professional** — issued Oct 2024, valid to Oct 2027
 
-Technician for Computers, Networks and Communications (Informatics / Computer Networks & Support),
-Kavala, Greece
+Technician for Computers, Networks and Communications (Informatics / Computer Networks & Support) —
+4th Vocational & Technical School (TEE), Kavala, Sep 1999 – Jul 2002
+
+Industrial Electronics Technology / Technician — 1st Vocational & Technical School (TEE), Kavala,
+Sep 1998 – Jul 1999
+
+Physiotherapist Assistants — 1st Vocational Apprenticeship Program (EPAS), Kavala, Sep 2011 – Jul 2013
 
 **Languages:** Greek (native) · English (professional working proficiency)
