@@ -1,23 +1,39 @@
-# Nick Sterniotis - Cloud & Virtualization Infrastructure Engineer | 20+ years
+# Nick Sterniotis — Infrastructure & Cloud Platform Engineer | 20+ Years in IT
 
-I run infrastructure that has to stay up: Linux systems, hypervisor estates, the network paths
-between them, and the automation that changes them under explicit controls. Twenty-plus years, the
-last several of them as the sole owner of a 24/7 production service, incident owner, change owner,
-and the person the pager reaches.
+Linux, virtualisation and the production operations around them: the systems that have to stay up,
+the network paths between them, and the automation used to change any of it under review. Twenty-plus
+years in IT, most of it as the person who owns the incident, owns the change, and writes the runbook
+afterwards.
 
-What I actually do is narrower than most profiles claim: virtualization (Virtuozzo/OpenVZ and VMware
-vSphere in production, KVM underneath), Linux at the configuration level rather than the screenshot
-level, Ansible with CI that fails the build, and observability that is small on purpose, Prometheus,
-Grafana, Loki, Tempo, with rules I can defend one by one.
+What I actually do, in plain terms:
 
-The last two years have been self-directed AI infrastructure: serving models on my own hardware,
-measuring time-to-first-token and cache occupancy before choosing a model, and running agent
-workloads under timeouts, budgets and a human approval gate on anything that leaves the machine.
+- **Linux and production operations** — Debian/Ubuntu and RHEL-family, systemd, hardening, patch and
+  package policy, diagnosis with `ss`/`ip`/`nstat` rather than guesswork.
+- **Virtualisation and hosted infrastructure** — Virtuozzo/OpenVZ container hosting and VMware vSphere
+  in production hosting, KVM underneath, Proxmox VE on my own estate.
+- **Networking** — routing, DNS and DHCP, VPN, NAT, firewall zones, reverse proxy and TLS termination,
+  and the copper-and-fibre troubleshooting that comes with 20 years of it.
+- **Infrastructure automation** — Ansible with an executable inventory and Git-reviewed changes, and
+  CI that fails the build when a change is wrong: `ansible-lint` escalated to hard-fail, inventory
+  parsing, syntax checks, secret scanning, regression tests.
+- **Reliability practices** — incident command, blameless root-cause analysis, runbooks, architecture
+  decision records, restore rehearsal treated as the real backup control.
+- **Cloud architecture** — certified on AWS: [AWS Certified Solutions Architect – Professional](https://aws.amazon.com/certification/certified-solutions-architect-professional/),
+  issued Oct 2024, valid to Oct 2027. Azure Cloud exposure is limited (roughly 2–3 months);
+  Active Directory and Microsoft 365 administration are a separate, longer line on my CV.
 
-- CV: [`cv/Nick_Sterniotis_CV.pdf`](https://github.com/sternnick/portfolio/blob/main/cv/Nick_Sterniotis_CV.pdf)
-- Side projects: [`projects/`](https://github.com/sternnick/portfolio/tree/main/projects)
-- LinkedIn: https://linkedin.com/in/nsterniotis
-- GitHub: https://github.com/sternnick
+I am a hands-on infrastructure engineer with technical leadership experience. Where something in this
+repository is planned rather than deployed, the file says so in its own words — several of them do it
+in a "Not verified" table, because a project page that oversells itself is worse than a smaller one.
 
-Based in Cork, Ireland. Looking for senior remote infrastructure and platform engineering work,
-Ireland or EU, across timezones.
+## Where things are
+
+| | |
+|---|---|
+| CV | [`cv/Nick_Sterniotis_CV.pdf`](https://github.com/sternnick/portfolio/blob/main/cv/Nick_Sterniotis_CV.pdf) · [markdown source](https://github.com/sternnick/portfolio/blob/main/cv/Nick_Sterniotis_CV.md) |
+| Projects | [`projects/`](https://github.com/sternnick/portfolio/tree/main/projects) — network automation, declarative Proxmox provisioning, self-hosted AI |
+| LinkedIn | [linkedin.com/in/nsterniotis](https://www.linkedin.com/in/nsterniotis) |
+| GitHub | [github.com/sternnick](https://github.com/sternnick) |
+
+Based in Cork, Ireland. EU citizen, no employment permit required, 1 month notice.
+Looking for senior infrastructure and platform engineering roles, remote within Ireland and the EU.
