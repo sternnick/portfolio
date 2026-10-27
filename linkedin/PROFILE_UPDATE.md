@@ -27,7 +27,10 @@ Infrastructure & Cloud Platform Engineer | 20+ Years in IT | Linux | Virtualisat
 
 Keeps every token that is already there, replaces the vague "Production Systems" with the two things
 that are actually the job, and fixes the years figure: the exported summary says "15+", the
-reconciled timeline supports 20+ (22 years 2 months employed since Apr 2000).
+reconciled timeline supports 20+ on the elapsed-span reading: 26 years since Apr 2000, against
+roughly 17.5 years of summed employment once the stated 2010-2012 break and the student years at
+Altec are subtracted. An earlier revision of this file said "22 years 2 months employed", which
+matches neither figure and has been dropped rather than defended.
 
 ## About
 

@@ -5,7 +5,7 @@ in the source repository has said since the start that a published CV carries th
 not the phone; this file existed in violation of that rule, along with 23 em dashes and a
 "15+ years"-era layout.
 
-The current CV is published at <https://sternnick.github.io/sterniotis-hub/> and generated from the
+The current CV is published at <https://sterniotis.com/> and generated from the
 private source repository by `scripts/generate_pdf.py --public`, which refuses any output containing
 anything shaped like a phone number. That file is the only CV that should be linked from anywhere.
 
