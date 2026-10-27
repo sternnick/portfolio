@@ -29,7 +29,7 @@ in a "Not verified" table, because a project page that oversells itself is worse
 
 | | |
 |---|---|
-| CV | [`cv/Nick_Sterniotis_CV.pdf`](https://github.com/sternnick/portfolio/blob/main/cv/Nick_Sterniotis_CV.pdf) · [markdown source](https://github.com/sternnick/portfolio/blob/main/cv/Nick_Sterniotis_CV.md) |
+| CV | [Master CV, PDF](https://sterniotis.com/cv/Nick_Sterniotis_Master_CV.pdf) - generated from the private source; the markdown never becomes public |
 | Projects | [`projects/`](https://github.com/sternnick/portfolio/tree/main/projects): network automation, declarative Proxmox provisioning, self-hosted AI |
 | LinkedIn | [linkedin.com/in/nsterniotis](https://www.linkedin.com/in/nsterniotis) |
 | GitHub | [github.com/sternnick](https://github.com/sternnick) |
