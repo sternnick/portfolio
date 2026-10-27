@@ -4,7 +4,7 @@
 
 Serving open-weight models locally on an NVIDIA DGX Spark with a CPU fallback path, and treating it
 as an infrastructure problem rather than a demo: measure first, choose second. Scope: a single
-self-directed host serving my own workloads — not a multi-node platform, not a service with users or
+self-directed host serving my own workloads: not a multi-node platform, not a service with users or
 an SLA, and nothing here is presented as production-deployed.
 
 **Evidence tiers used on this page:** *verified implementation* (the gateway, access control and
@@ -35,5 +35,5 @@ Single host, single site, no redundancy; the CPU fallback is a capacity relief v
 high-availability design. The measured figures are one machine on one day, not a benchmark. Resource
 isolation is per-lane timeouts and budgets in the orchestration layer, not kernel-level quotas, so an
 unbounded workload could still degrade the host. And the access control is only as strong as the
-approval gate in front of the send path — the interesting failure mode is a permitted action, not a
+approval gate in front of the send path: the interesting failure mode is a permitted action, not a
 rejected one.

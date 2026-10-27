@@ -9,5 +9,6 @@ The current CV is published at <https://sternnick.github.io/sterniotis-hub/> and
 private source repository by `scripts/generate_pdf.py --public`, which refuses any output containing
 anything shaped like a phone number. That file is the only CV that should be linked from anywhere.
 
-What remains here is the Markdown with the telephone line removed, kept only so this directory
-explains itself rather than 404ing.
+Nothing is left to download. An earlier pass left the Markdown with the phone line cut; it went
+shortly after, because the same file also carried 23 em dashes and 19 en dashes, and a repository
+with a character policy should not publish an exception to it in a folder of leftovers.
