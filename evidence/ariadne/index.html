@@ -1,0 +1,80 @@
+<!doctype html><html lang=en-IE><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Ariadne: CV parsing research and a parser spine · Nick Sterniotis | Infrastructure & Cloud</title><meta name=description content="A dependency-free Python parser that reports what the extraction lost, with typed failure codes, beside a research corpus where every claim carries a source id and a grade."><meta name=author content="Nick Sterniotis"><link rel=canonical href=https://portfolio.sterniotis.com/evidence/ariadne/><meta name=theme-color content="#0f172a" media="(prefers-color-scheme: dark)"><meta name=theme-color content="#f7f9fc" media="(prefers-color-scheme: light)"><meta property="og:type" content="article"><meta property="og:title" content="Ariadne: CV parsing research and a parser spine"><meta property="og:description" content="A dependency-free Python parser that reports what the extraction lost, with typed failure codes, beside a research corpus where every claim carries a source id and a grade."><meta property="og:url" content="https://portfolio.sterniotis.com/evidence/ariadne/"><meta property="og:site_name" content="Nick Sterniotis | Infrastructure & Cloud"><link rel=stylesheet href=/css/main.css><link rel=icon href=/favicon.svg type=image/svg+xml><body><a class=skip-link href=#main>Skip to content</a><header class=site-header><div class="wrap nav"><a class=brand href=/><span class=mark aria-hidden=true>NS</span> Nick Sterniotis</a><nav class=site-nav aria-label=Main><ul><li><a href=/evidence/>Evidence</a></li><li><a href=https://sterniotis.com/cv/Nick_Sterniotis_Master_CV.pdf>CV</a></li><li><a href=mailto:nick@sterniotis.com>Contact</a></li></ul></nav></div></header><main id=main><article class=page><h1>Ariadne: CV parsing research and a parser spine</h1><p class=lede>A dependency-free Python parser that reports what the extraction lost, with typed failure codes, beside a research corpus where every claim carries a source id and a grade.</p><p><strong>Evidence tier: Verified | code</strong> for the parser and the research corpus described below, in the
+pre-1.0 line of <a href=https://github.com/sternnick/Ariadne>Ariadne</a>. Nothing on this page claims a hosted
+service, a user, or a measurement against a real employer&rsquo;s system, because none exists.</p><p>It is a card and not a case study on purpose: the code is the artifact, and a case study would imply a
+deployment the repository does not have. Whether it appears on the homepage is the homepage&rsquo;s business -
+the card list there is the evidence, and this page deliberately does not describe it, because a second
+copy of that fact is a second thing that can be out of date.</p><h2 id=what-it-is>What it is</h2><p>A research repository plus a small Python package, built around one narrow question: what happens to a
+CV between &ldquo;upload&rdquo; and &ldquo;a human reads it&rdquo;, and what can honestly be measured about that. Two halves,
+deliberately kept apart.</p><p><code>docs/</code> is the research: a source register in which every claim carries a source id and a grade of
+<code>A</code>, <code>B</code>, <code>C</code> or <code>U</code>, every page carries a freshness date, and CI checks the register in both
+directions so a citation cannot dangle and a source cannot go uncited.</p><p><code>src/ariadne_ats/</code> is the implementation of only the parts that can be built without a model: text
+normalisation, layout-damage detection with named failure codes, section segmentation with per-section
+confidence, a fact ledger, a job-description requirement extractor, and a TF-IDF comparison that
+prints the terms behind its number. The tree, the tests and the commit history are the source for
+size and coverage, and deliberately so: an earlier revision of this page quoted a line count and a
+test-module count, and the repository grew past both figures within a week of the page going live.</p><h2 id=architecture>Architecture</h2><pre tabindex=0><code>  cv.docx / cv.pdf / cv.txt
+        |
+        v
+  extract     DOCX through the stdlib (a DOCX is a zip of XML: zipfile plus ElementTree, no
+              dependency at all). PDF through an optional backend (pymupdf, else pypdf).
+              An image-only PDF reaches OCR only if an OCR backend is installed.
+        |
+        v
+  textutil    normalisation: whitespace, hyphenation, ligatures, the quiet damage a converter does
+        |
+        v
+  layout      damage detection with named codes: multicolumn flattening, a header/footer band
+              leaking into the body, folded ligatures, text yield below a usable floor
+        |
+        v
+  segment     section boundaries, each with a confidence rather than a bare True
+        |
+        v
+  evidence    the ledger: fact id, source span, confidence, and two hashes per fact
+        |
+        v
+  jd, lexical  requirement extraction with weights and spans, then TF-IDF cosine that prints
+               the terms that produced the number
+
+  errors runs under all of it: a Code plus a Severity (BLOCKING or DEGRADED) per finding.
+</code></pre><h2 id=key-decisions>Key decisions</h2><p><strong>Deterministic, and dependency-free on purpose.</strong> <code>dependencies = []</code> in the package metadata, with
+<code>pytest</code> the only dev extra, Python 3.10 or newer, and no network call in the baseline path. The
+reasoning: a measurement tool whose output depends on a model revision or a network round trip is not
+a measurement tool, and the extraction that needs a third-party library says so with a typed failure
+instead of quietly degrading.</p><p><strong>Failures are typed, because a plausible empty result is the dangerous output.</strong> <code>PDF_BACKEND_MISSING</code>,
+<code>OCR_BACKEND_MISSING</code>, <code>NO_TEXT_LAYER</code>, <code>CORRUPT_DOCUMENT</code>, <code>UNSUPPORTED_FORMAT</code>, <code>EMPTY_INPUT</code>,
+<code>LOW_TEXT_YIELD</code>, <code>MULTICOLUMN_FLATTENED</code>, <code>HEADER_FOOTER_BAND</code>, <code>LIGATURE_FOLDED</code>. A document that
+cannot be read produces a code and a severity, not a page of blanks that reads like a sparse CV.</p><p><strong>No scoring, and not by taste.</strong> The published evidence this project graded <code>A</code> is that a ranking
+function of this class reverses the order of candidates on <strong>29.6 %</strong> of pairs where competence was
+deliberately preserved (validity 0.781 on matched-pair reversals, <code>docs/03</code> section 3.4). So there is
+no &ldquo;score my CV&rdquo; command in the CLI at all: adding a flag that implied a score would be a user-facing
+claim. What ships instead is <code>compare</code>, which prints a cosine <strong>and the terms that produced it</strong>, so
+the number can be argued with.</p><p><strong>Grades are enforced by CI, not by discipline.</strong> Every claim in <code>docs/</code> carries a source id and one of
+four grades, and the register is checked in both directions by the build. <code>U</code> means &ldquo;attempted,
+unanswered&rdquo; and is a real value a page can carry; it is not a placeholder waiting to be quietly
+deleted.</p><p><strong>Person-attribute inference is refused structurally.</strong> The contract rejects it, and
+<code>tests/test_no_profiling.py</code> fails the build on it. A rule that only exists in a policy file is a rule
+that decays.</p><h2 id=what-broke>What broke</h2><p><strong>The authoritative sources answered with everything except an answer.</strong> Eight applicant-tracking
+help endpoints were queried for their parser identity and accepted formats. The responses were a 404, a
+401, a Cloudflare JavaScript shell, and a connection failure, and the vendor-identity query returned
+zero results: <strong>0 of 8</strong> targets answered, <strong>7 of 8</strong> unknown on accepted formats. Those failures are
+recorded and graded <code>A</code> as records of failure, and the unknowns are written as <code>U</code>. The tempting
+alternative was to summarise what the internet believes about ATS vendors, which would have produced a
+confident page built on nobody&rsquo;s knowledge.</p><p><strong>The one official-grade artifact held is a sandbox subdomain.</strong> It is labelled as a sandbox on the
+page that cites it, because a sandbox limit is not a production limit and the difference is the
+conclusion.</p><p><strong>A DOCX is a zip of XML, so the zero-dependency path works, and a malformed one raises
+<code>CORRUPT_DOCUMENT</code>.</strong> An image-only PDF has no text layer, and before the typed codes existed that
+document parsed &ldquo;successfully&rdquo; into nothing. The fix was not better extraction but a code that says
+what happened.</p><h2 id=known-limitations>Known limitations</h2><ul><li><strong>Not an ATS, and not a way to beat one.</strong> No vendor&rsquo;s acceptance or ranking rules are known, and the
+pages say which eight attempts produced no answer.</li><li><strong>No score exists</strong>, so nothing here predicts or guarantees an employer&rsquo;s decision. Any match number
+in the code is this project&rsquo;s own construct, not a reproduction of anyone&rsquo;s ranking.</li><li><strong>Pre-1.0: research plus parser spine.</strong> No hosted service, no generation, no user accounts,
+no deployment.</li><li><strong>PDF and OCR paths need optional backends.</strong> With none installed the result is a typed failure, not
+a degraded success, which is the correct behaviour and still not a working extraction.</li><li><strong>The forbidden-sentence list is part of the design.</strong> <code>docs/09</code> section 8 lists the claims this
+project may never make, including &ldquo;AI Act compliant&rdquo; and a blanket &ldquo;GDPR compliant&rdquo;; compliance work
+here is documented as an assessment, not a certificate.</li><li><strong>Research freshness is a standing cost.</strong> A source register with grades needs a cadence, so the repo
+runs a weekly source probe and a monthly freshness pass; an unfreshened unknown may already have been
+answered.</li></ul><h2 id=what-is-not-claimed>What is not claimed</h2><ul><li>No measurement against any production ATS, and no claim about how any specific employer&rsquo;s system
+reads a CV.</li><li>No users, no traffic, no availability target. This is a repository, not a service.</li><li>No compliance certification of any kind.</li><li>No infrastructure story: no pipeline, no estate, no on-call. It is a parsing and research project, and
+it is listed as a line in a CV rather than as a case study for exactly that reason.</li></ul><p><a href=/evidence/>how claims are graded</a> · <a href=/>back to the homepage</a></p></article></main><footer class=site-footer><div class=wrap><p>© 2026 Nick Sterniotis · Cork, Ireland</p><p><a href=https://sterniotis.com/cv/Nick_Sterniotis_Master_CV.pdf>Master CV (PDF)</a> &#183;
+<a href=https://www.linkedin.com/in/nsterniotis>LinkedIn</a> &#183;
+<a href=https://github.com/sternnick>GitHub</a></p><p>Built with <a href=https://gohugo.io/>Hugo</a> from a private source repository</p></div></footer></body></html>

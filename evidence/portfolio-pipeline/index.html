@@ -1,0 +1,94 @@
+<!doctype html><html lang=en-IE><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Portfolio pipeline · Nick Sterniotis | Infrastructure & Cloud</title><meta name=description content="The delivery path that builds this site: a private source repository, two fail-closed character gates, a Hugo build in GitHub Actions, and a one-way publish to GitHub Pages."><meta name=author content="Nick Sterniotis"><link rel=canonical href=https://portfolio.sterniotis.com/evidence/portfolio-pipeline/><meta name=theme-color content="#0f172a" media="(prefers-color-scheme: dark)"><meta name=theme-color content="#f7f9fc" media="(prefers-color-scheme: light)"><meta property="og:type" content="article"><meta property="og:title" content="Portfolio pipeline"><meta property="og:description" content="The delivery path that builds this site: a private source repository, two fail-closed character gates, a Hugo build in GitHub Actions, and a one-way publish to GitHub Pages."><meta property="og:url" content="https://portfolio.sterniotis.com/evidence/portfolio-pipeline/"><meta property="og:site_name" content="Nick Sterniotis | Infrastructure & Cloud"><link rel=stylesheet href=/css/main.css><link rel=icon href=/favicon.svg type=image/svg+xml><body><a class=skip-link href=#main>Skip to content</a><header class=site-header><div class="wrap nav"><a class=brand href=/><span class=mark aria-hidden=true>NS</span> Nick Sterniotis</a><nav class=site-nav aria-label=Main><ul><li><a href=/evidence/>Evidence</a></li><li><a href=https://sterniotis.com/cv/Nick_Sterniotis_Master_CV.pdf>CV</a></li><li><a href=mailto:nick@sterniotis.com>Contact</a></li></ul></nav></div></header><main id=main><article class=page><h1>Portfolio pipeline</h1><p class=lede>The delivery path that builds this site: a private source repository, two fail-closed character gates, a Hugo build in GitHub Actions, and a one-way publish to GitHub Pages.</p><p><strong>Evidence tier: Verified | code (private)</strong> for the pipeline described below. The workflow source is
+in a private repository, so there is no source link here. What is public is the thing it produces: this
+page, and every byte of the site it is served from, which you can read in your browser&rsquo;s viewer without
+logging in anywhere. That asymmetry is deliberate and is the subject of the page.</p><h2 id=what-it-is>What it is</h2><p>The CI/CD path that builds this site. A commit to <code>main</code> in a private repository, when it touches the
+site directory, is fetched by GitHub Actions, scanned for forbidden characters twice (once in the source,
+once in the built artifact), rendered by Hugo into eleven files, and published to the <code>gh-pages</code> branch of
+a separate public repository, from which GitHub Pages serves it. Six such runs have completed, all green,
+and the site you are reading is the output of the sixth.</p><p>It is the least glamorous thing on this page and the one I would defend hardest in an interview, because
+it is where the rules that make the rest of the site trustworthy stop being intentions.</p><h2 id=architecture>Architecture</h2><pre tabindex=0><code>  private source repository  (Markdown + one Python checker + one workflow)
+        |
+        |  git push to main, paths: public-site/** or the workflow file
+        v
+  GitHub Actions, deploy.yml                    (the only workflow; ubuntu-latest)
+    1  checkout                    permissions: contents: read, so the job cannot write here
+    2  checker self-test           4 planted violations must all be caught
+    3  whole-tree source scan      16 extensions, fail closed, 9 allowlisted paths
+    4  Hugo 0.168.0 extended       hugo --minify --gc --baseURL
+    5  homepage assertion         the build must have produced an index.html that is HTML
+    6  built-artifact scan         the same checker, pointed at every file about to ship
+    7  publish                     personal access token -&gt; gh-pages of the public repo, force_orphan
+        |
+        v
+  public repository, branch gh-pages            (one commit, always: it is an artifact, not history)
+        |
+        v
+  GitHub Pages  -&gt;  https://portfolio.sterniotis.com/
+</code></pre><p>The run this page was written against (Actions run #8, 2026-10-27): 8 steps, all <code>success</code>, 11 seconds
+of job wall clock, and a log line after each scan of the form <code>scanned N file(s)</code> followed by <code>CLEAN</code>.
+One honesty note about that sentence: this repository is private, so its Actions log is not something a
+visitor can open, and the file counts in that log moved the day a page was added. The part a reader can
+check is the shape, not the number: run the same scanner locally and it prints the same two scans.</p><h2 id=key-decisions>Key decisions</h2><p><strong>Private source, public output.</strong> The site is authored in a repository nobody outside can read, and only
+the rendered result crosses into the public one. Three things this buys, all of them real:</p><ul><li><em>Draft safety.</em> A half-written case study can be committed, pushed and reworded without it ever being
+public. Nothing is exposed by the act of working on it.</li><li><em>Data privacy in the authoring material.</em> The private repository holds the fact ledger, the counterfactual
+drafts and the source documents the site summarises. The public repository holds HTML.</li><li><em>A one-way door by construction.</em> The workflow writes <code>gh-pages</code> and never <code>main</code>, and the public
+repository holds no workflow files at all. An edit made on the public side is overwritten by the next
+deploy, so the only durable way to change the site is to change the source.</li></ul><p>The cost is honest and worth stating: the public repository has no pull requests and no issues (they are
+disabled on purpose), so there is no public trail of why the output changed. The trail lives in private
+commit messages, which is why the commit message is the place the reasoning has to go.</p><p><strong>Hugo, and specifically static Hugo.</strong> No Node.js, no package manager, no lockfile, no <code>node_modules</code>,
+no dependency to expire between visits. The build is one binary at one pinned version, it finishes in
+tens of milliseconds - 16 to 19 ms across three runs on this machine, which is a property of this
+machine rather than a claim about yours - and its entire output is a directory I can enumerate in one
+glance. A local build with the same pinned version reproduces the same set of paths, which is the check
+I run before pushing anything. The file count deliberately does not appear on this page: it grew from 11
+to 13 the week the first two evidence pages were added, and a page about a pipeline that goes stale
+because someone published a page is a page that will be ignored. The cost: no
+dynamic content, no server-side anything, and a theme written by hand rather than picked from a gallery.
+That cost is the point of the choice.</p><p><strong>The sanitizer, and what makes it a gate rather than a lint.</strong> One Python file, no dependencies, run
+twice per deploy. Three properties were added specifically because their absence had already caused a
+failure:</p><ul><li>It names characters by codepoint instead of embedding them in its own source, because a checker whose
+source contains the characters it forbids cannot be scanned by itself.</li><li>It runs a self-test before it is allowed to pass anything: four planted violations, one per rule, must
+all be caught. A gate that cannot fail is not a gate.</li><li>It refuses to report <code>CLEAN</code> when it has scanned zero files, because an empty file list once looked
+like a passing check.</li></ul><p>Two scans rather than one is also deliberate. The source scan runs before Hugo is installed, so a bad
+character costs seconds and can never publish first. The artifact scan reads what actually ships, so it
+also sees a character a theme partial, a shortcode or Hugo itself introduced. The artifact scan is the
+authoritative one.</p><h2 id=what-broke>What broke</h2><p><strong>Sub-paths, twice.</strong> The site is published under <code>/portfolio/</code>, a repository project page, not at a
+domain root. A link written as a root-absolute path resolves above that prefix and 404s on every page but
+the homepage, while looking perfectly correct in the source. Every internal URL is therefore generated by
+Hugo&rsquo;s <code>relURL</code>, or by <code>RelPermalink</code> in the card partial, both of which know the base path. The same trap
+returned later in a different shape: a <code>minify</code> build strips attribute quotes, so the artifact contains
+<code>href=/portfolio/...</code> and a link checker written against <code>href="</code> matches nothing at all and cheerfully
+reports a site with no links in it. Two ways to be wrong about the same three characters.</p><p><strong>The gate that was too weak to notice.</strong> Until 2026-10-26 the artifact step checked for typographic
+dashes with two <code>grep</code> calls and nothing else. It printed a helpful remediation message, it ran on every
+deploy, and it passed. Measured that day against the live artifact: four typographic quotation marks were
+sitting in the published HTML, on a page that had shipped through that very step. The step had been
+green the entire time, because it had never been asked about quotes. The fix was not a better <code>grep</code> but
+the whole checker above, adopted as a step, with the self-test that would have caught the original
+weakness in the first run. The quotes are gone, verified by fetching every published page.</p><p><strong>A public repository that carried more than it should.</strong> A separate public repository in the same
+family, a documentation mirror, had an internal network address and an operator mailbox in its early
+commits. No credential was ever in it: the exposure was topology and identity, not access. It was closed
+by rewriting <code>main</code> to a single squashed commit, after verifying that the tree was byte-identical to the
+one before, that the repository had no forks and no tags, and that a full backup existed off-site. The
+part worth remembering is what the force-push could not reach: a forge keeps its own refs for closed pull
+requests, and a rewritten default branch does not remove them. The residue was accepted and written down,
+with the condition that would make it unacceptable.</p><h2 id=known-limitations>Known limitations</h2><ul><li><strong>Static only.</strong> No server-side code, no dynamic content, no personalisation, no search. Everything is
+decided at build time.</li><li><strong>The sync is one-way, and it is a force-push.</strong> <code>gh-pages</code> is published with <code>force_orphan</code>, so it holds
+exactly one commit. Nothing can be authored on the public side, and there is no rollback history in that
+branch: the artifact is the last build, full stop.</li><li><strong>The homepage assertion is the only content guard.</strong> It fails a build that produced no <code>index.html</code>. A
+build that produced a wrong but well-formed page passes, correctly, because no automated check can tell
+a bad sentence from a good one.</li><li><strong>A character policy is not an exfiltration policy.</strong> The scans forbid specific punctuation. They do not
+look for hostnames, addresses or paths, so what keeps those out of the generated pages is the export
+boundary in the source repository plus a human reading the diff.</li><li><strong>No link check in CI.</strong> Nothing follows the links in the artifact. They are correct today because
+<code>relURL</code> makes them so and because a <code>minify</code> build removes the quotes a hand-written checker would key
+on.</li><li><strong>A docs-only change runs nothing.</strong> The workflow&rsquo;s push trigger is filtered to the site directory and
+the workflow file itself, so a commit that only touches documentation starts no run and gets no scan
+from CI. That is the same boundary as the previous point, seen from the other side: the automated guard
+is strongest exactly where the artifact is built.</li><li><strong>Green build is not green publish.</strong> Publishing authenticates with a personal access token, because the
+job&rsquo;s own token cannot write to a different repository. If that token expires, every step before the last
+one succeeds and the publish fails with a 403.</li></ul><h2 id=what-is-not-claimed>What is not claimed</h2><ul><li><strong>No claim about scale.</strong> Six deploys, one publisher, one maintainer, no staging environment, no blue
+or green anything, and no traffic to speak of.</li><li><strong>No container or self-hosted runner story.</strong> The build runs on a hosted runner with Hugo installed as a
+step. Nothing here was tuned for cost or concurrency.</li><li><strong>No secret-scanning claim.</strong> The pipeline holds one secret, a token, and its handling is unremarkable:
+it is a repository secret, read once, by the step that needs it.</li><li><strong>No public source for the pipeline itself.</strong> The workflow file lives in a private repository. The
+evidence here is the artifact it produced, which is the page you are reading.</li></ul><p><a href=/evidence/>how claims are graded</a> · <a href=/>back to the homepage</a></p></article></main><footer class=site-footer><div class=wrap><p>© 2026 Nick Sterniotis · Cork, Ireland</p><p><a href=https://sterniotis.com/cv/Nick_Sterniotis_Master_CV.pdf>Master CV (PDF)</a> &#183;
+<a href=https://www.linkedin.com/in/nsterniotis>LinkedIn</a> &#183;
+<a href=https://github.com/sternnick>GitHub</a></p><p>Built with <a href=https://gohugo.io/>Hugo</a> from a private source repository</p></div></footer></body></html>
